@@ -1,0 +1,1 @@
+{"name":"Local: sqrt_by_bin_src","url":"c:\\Users\\marwa\\programming\\sqrt_by_bin_src.cpp","tests":[{"id":1716903672411,"input":"7\n4 2\n16 2\n8 3\n64 3\n121 2\n225 2\n2 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\sqrt_by_bin_src.cpp","group":"local","local":true}
