@@ -1,0 +1,1 @@
+{"name":"Local: insertion_in_Heap","url":"c:\\Users\\marwa\\programming\\insertion_in_Heap.cpp","tests":[{"id":1724936020590,"input":"5\n10\n60\n40\n50\n30","output":"60 50 40 10 30"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\insertion_in_Heap.cpp","group":"local","local":true}
