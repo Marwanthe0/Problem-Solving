@@ -1,0 +1,1 @@
+{"name":"Local: dfs_graph","url":"c:\\Users\\marwa\\programming\\dfs_graph.cpp","tests":[{"id":1726069527916,"input":"5 5\n0 1\n1 4\n0 2\n3 1\n2 3\n0","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\dfs_graph.cpp","group":"local","local":true}
