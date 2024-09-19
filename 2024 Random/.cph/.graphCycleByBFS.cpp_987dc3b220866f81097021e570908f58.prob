@@ -1,0 +1,1 @@
+{"name":"Local: graphCycleByBFS","url":"c:\\Users\\marwa\\programming\\graphCycleByBFS.cpp","tests":[{"id":1726147002642,"input":"4 4\n0 1\n1 2\n0 3\n2 3\n0","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\graphCycleByBFS.cpp","group":"local","local":true}
