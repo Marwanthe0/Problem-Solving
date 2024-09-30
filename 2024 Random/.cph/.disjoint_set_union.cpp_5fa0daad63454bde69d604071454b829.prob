@@ -1,0 +1,1 @@
+{"name":"Local: disjoint_set_union","url":"c:\\Users\\marwa\\programming\\disjoint_set_union.cpp","tests":[{"id":1727627424577,"input":"5 5\n0 1\n1 2\n1 4\n2 3\n3 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\disjoint_set_union.cpp","group":"local","local":true}
