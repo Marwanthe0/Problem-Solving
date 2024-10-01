@@ -1,0 +1,1 @@
+{"name":"Local: bin_search_algorithm","url":"c:\\Users\\marwa\\programming\\bin_search_algorithm.cpp","tests":[{"id":1716808935461,"input":"2\n6\n1 2 4 6 8 10\n6\n4\n1 3 6 9\n6","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\marwa\\programming\\bin_search_algorithm.cpp","group":"local","local":true}
