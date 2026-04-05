@@ -1,0 +1,1 @@
+{"name":"Local: F_LIS_er_s=subs","url":"c:\\Problem Solving\\CP-31 Sheet\\Practice\\F_LIS_er_s=subs.cpp","tests":[{"id":1775405119706,"input":"3\n2\n1 1\n2\n2 1\n2\n2 3","output":"0\n1\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Problem Solving\\CP-31 Sheet\\Practice\\F_LIS_er_s=subs.cpp","group":"local","local":true}
