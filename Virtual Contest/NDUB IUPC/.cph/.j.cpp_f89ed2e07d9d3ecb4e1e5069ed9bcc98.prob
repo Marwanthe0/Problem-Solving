@@ -1,0 +1,1 @@
+{"name":"Local: j","url":"c:\\Problem Solving\\Virtual Contest\\NDUB IUPC\\j.cpp","tests":[{"id":1779028564452,"input":"4\n1\n2\n5\n10","output":"0\n1\n6\n25"},{"id":1779029240199,"input":"1\n4294967296","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Problem Solving\\Virtual Contest\\NDUB IUPC\\j.cpp","group":"local","local":true}
