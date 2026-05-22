@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define M 1000000007
+#define N 1000000
+#define endl "\n"
+#define all(v) v.begin(), v.end()
+#define forn for (int i = 0; i < n; i++)
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
+void marwan() {
+    string s;
+    cin >> s;
+    unordered_set<char> primes = {'2', '3', '5', '7'};
+    int k;
+    cin >> k;
+    for (int i = 0; i < s.size(); i++) {
+        int x = s[i] - '0';
+        x += k;
+        x %= 10;
+        s[i] = x + '0';
+    }
+    cout << s << endl;
+    for (auto c : s) {
+        if (primes.count(c)) {
+            yes;
+            return;
+        }
+    }
+    no;
+}
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    marwan();
+    return 0;
+}
