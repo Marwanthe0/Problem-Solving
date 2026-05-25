@@ -1,0 +1,1 @@
+{"name":"Local: d","url":"c:\\Problem Solving\\Practice\\MBSTU EID Salami Replay\\d.cpp","tests":[{"id":1779721868229,"input":"4\n15\n5\n100000185\n3\n100000185\n4\n100000185\n5","output":"NO\nNO\nYES\n8\nYES\n56"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Problem Solving\\Practice\\MBSTU EID Salami Replay\\d.cpp","group":"local","local":true}
