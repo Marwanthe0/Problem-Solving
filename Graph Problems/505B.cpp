@@ -8,64 +8,38 @@ using namespace std;
 #define forn for (int i = 0; i < n; i++)
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
-#define make_unique(x) \
-    sort(all((x)));    \
-    (x).erase(unique(all((x))), (x).end())
+vector<vector<vector<int>>> g;
+vector<int> vis;
+void dfs(int nd, int col) {
+    vis[nd] = 1;
+    for (auto child : g[nd][col])
+        if (!vis[child])
+            dfs(child, col);
+}
 void marwan() {
     int n, m;
     cin >> n >> m;
-    vector<vector<vector<int>>> g(m + 1, vector<vector<int>>(n + 1));
-    vector<vector<int>> ans(n + 1, vector<int>(n + 1, 0));
-    vector<int> cols;
+    g.resize(n + 1, vector<vector<int>>(m + 1));
     for (int i = 0; i < m; i++) {
         int a, b, c;
         cin >> a >> b >> c;
-        cols.push_back(c);
-        g[c][a].push_back(b);
-        g[c][b].push_back(a);
+        g[a][c].push_back(b);
+        g[b][c].push_back(a);
     }
-    make_unique(cols);
-    vector<int> vis;
-    auto bfs = [&](int nd, vector<vector<int>> &ag) {
-        vector<int> nodes;
-        nodes.push_back(nd);
-        queue<int> q;
-        q.push(nd);
-        vis[nd] = 1;
-        while (!q.empty()) {
-            int front = q.front();
-            q.pop();
-            for (auto child : ag[front]) {
-                if (vis[child])
-                    continue;
-                vis[child] = 1;
-                q.push(child);
-                nodes.push_back(child);
-            }
-        }
-        make_unique(nodes);
-        for (int i = 0; i < (int)nodes.size(); i++) {
-            // cerr << nodes[i] << " ";
-            for (int j = i + 1; j < (int)nodes.size(); j++)
-                ans[nodes[i]][nodes[j]]++;
-        }
-        cerr << endl;
-    };
-
-    for (auto i : cols) {
-        vis.assign(n + 1, 0);
-        for (int j = 1; j <= n; j++) {
-            if (g[i][j].size() && !vis[j]) {
-                bfs(j, g[i]);
-            }
-        }
-    }
+    vis.resize(n + 1, 0);
     int q;
     cin >> q;
     while (q--) {
-        int a, b;
-        cin >> a >> b;
-        cout << max(ans[a][b], ans[b][a]) << endl;
+        int u, v;
+        cin >> u >> v;
+        int count = 0;
+        for (int i = 1; i <= m; i++) {
+            vis.assign(n + 1, 0);
+            dfs(u, i);
+            if (vis[v])
+                count++;
+        }
+        cout << count << endl;
     }
 }
 int32_t main() {
