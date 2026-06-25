@@ -1,0 +1,1 @@
+{"name":"Local: i","url":"c:\\Problem Solving\\Practice\\DUET 2025 Replay\\i.cpp","tests":[{"id":1782316516736,"input":"3\n3\n12 23 11\n5\n8 17 9 12 19\n2\n3 2","output":"161\n26\n6"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Problem Solving\\Practice\\DUET 2025 Replay\\i.cpp","group":"local","local":true}
