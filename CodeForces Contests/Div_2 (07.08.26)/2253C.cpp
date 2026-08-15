@@ -21,66 +21,25 @@ void marwan() {
         cin >> vl;
     for (auto &vl : b)
         cin >> vl;
-    if (a[0] > b.back()) {
-        int ans = 0ll;
-        for (int i = x - 1, j = 0; i >= 0 && j < n; i--, j++) {
-            ans += a[i];
-        }
-        for (int i = y - 1, j = 1; i >= 0 && j < m; j++) {
-            ans += b[i];
-        }
-        cout << ans << endl;
-    } else if (b[0] > a.back()) {
-        swap(a, b);
-        swap(x, y);
-        int ans = 0ll;
-        for (int i = x - 1, j = 0; i >= 0 && j < n; i--, j++) {
-            ans += a[i];
-        }
-        for (int i = y - 1, j = 1; i >= 0 && j < m; j++) {
-            ans += b[i];
-        }
-        cout << ans << endl;
-    } else {
-        map<int, int> mp;
-        for (int vl : a)
-            mp[vl] |= 1;
-        for (int vl : b)
-            mp[vl] |= 2;
-
-        vector<pair<int, int>> tt;
-        for (auto p : mp)
-            tt.push_back({p.first, p.second});
-        sort(tt.rbegin(), tt.rend());
-
-        int ans = 0ll;
-        int c1 = 0, c2 = 0, ctot = 0;
-
-        for (auto p : tt) {
-            int vl = p.first;
-            int type = p.second;
-
-            if (type == 1) {
-                if (c1 < n && ctot < n + m - 1) {
-                    c1++;
-                    ctot++;
-                    ans += vl;
-                }
-            } else if (type == 2) {
-                if (c2 < m && ctot < n + m - 1) {
-                    c2++;
-                    ctot++;
-                    ans += vl;
-                }
-            } else {
-                if (ctot < n + m - 1) {
-                    ctot++;
-                    ans += vl;
-                }
+    int i = x - 1, j = y - 1, taken = 0, l = 0, r = 0, ans = 0;
+    while ((i >= 0 || j >= 0) && taken < n + m - 1) {
+        int valA = i >= 0 ? a[i] : 0;
+        int valB = j >= 0 ? b[j] : 0;
+        if (valA > valB) {
+            if (l < n) {
+                l++, ans += valA, taken++;
             }
+            i--;
+        } else if (valB > valA) {
+            if (r < m) {
+                r++, ans += valB, taken++;
+            }
+            j--;
+        } else if (valA == valB) {
+            ans += valA, taken++, i--, j--;
         }
-        cout << ans << endl;
     }
+    cout << ans << endl;
 }
 int32_t main() {
     ios_base::sync_with_stdio(false);
