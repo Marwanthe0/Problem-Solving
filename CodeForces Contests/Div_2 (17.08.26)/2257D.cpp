@@ -14,32 +14,70 @@ using namespace std;
   sort(all((x)));                                                              \
   (x).erase(unique(all((x))), (x).end())
 void marwan() {
-  int n, q;
-  cin >> n >> q;
-  vector<pair<int, int>> divs;
-  for (int i = 1; i * i <= n; i++) {
-    if (n % i == 0) {
-      divs.push_back({i, n / i});
-      divs.push_back({n / i, i});
+  int s, q;
+  cin >> s >> q;
+  vector<int> divs, intervals;
+  map<int, int, greater<int>> m, tm;
+  for (int i = 1; i * i <= s; i++) {
+    if (s % i == 0) {
+      m[i] = s / i;
+      m[s / i] = i;
+      divs.push_back(i);
+      if (s / i != i)
+        divs.push_back(s / i);
     }
   }
-  sort(all(divs));
-  while (q--) {
-    map<int, int> m;
+  make_unique(divs);
+  int last = 0;
+  for (auto vl : divs) {
+    intervals.push_back(vl - last);
+    last = vl;
+  }
+  int sum = 0ll, sz = divs.size();
+  for (int i = 0; i < sz; i++) {
+    sum += divs[i] * 1ll * intervals[sz - i - 1];
+  }
+  // cout << sum << endl;
+  last = 0;
+  // for (auto vl : divs)
+  //   cerr << vl << " ";
+  // cerr << endl;
+  // for (auto vl : divs)
+  //   cerr << s / vl << " ";
+  // cerr << endl;
+  // for (auto vl : intervals)
+  //   cerr << vl << " ";
+  // cerr << endl;
+  int lastsum = 0, lastval = 0;
+  for (auto [x, y] : m) {
+    // cerr << x << " " << y << endl;
+    lastsum += (last - x) * lastval;
+    tm[x] = lastsum;
+    last = x, lastval = y;
+  }
+  // cerr << endl;
+  lastsum += (last)*lastval;
+  tm[0] = lastsum;
+  // for (auto [x, y] : tm)
+  //   cerr << x << " " << y << endl;
+  // cerr << endl;
+  // cerr << endl;
+  for (int i = 0; i < q; i++) {
     int x, y;
     cin >> x >> y;
-    for (auto [i, j] : divs) {
-      int ii = min(i, x), jj = min(j, y);
-    //   cerr << ii << " " << jj << endl;
-      m[jj] = ii;
-    }
-    int last = 0, sum = 0ll;
-    for (auto [i, j] : m) {
-      sum += (i - last) * j;
-      last = i;
-    }
-    cout << sum << endl;
-    // cerr << endl;
+    // cout << x << " " << y << endl;
+    int tsum = sum;
+    int ind1 = lower_bound(all(divs), x) - divs.begin(),
+        ind2 = lower_bound(all(divs), y) - divs.begin();
+    int xx = divs[ind1], yy = divs[ind2];
+    xx = (tm[xx] + (xx - x) * m[xx]);
+    yy = (tm[yy] + (yy - y) * m[yy]);
+    tsum -= (xx + yy);
+    ind2 = sz - ind2 - 1;
+    if (ind1 <= ind2)
+      cout << x * 1ll * y << endl;
+    else
+      cout << tsum << endl;
   }
 }
 int32_t main() {
