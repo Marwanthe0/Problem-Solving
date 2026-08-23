@@ -13,33 +13,23 @@ using namespace std;
 #define make_unique(x)                                                         \
   sort(all((x)));                                                              \
   (x).erase(unique(all((x))), (x).end())
-vector<int> fact(N + 5, 0ll), ifact(N + 5, 0ll);
-int mod(int x, int m = M) { return (x % m + m) % m; }
-int binexp(int a, int b) {
-  int ans = 1ll;
-  while (b) {
-    if (b & 1)
-      ans = mod(ans * 1ll * a);
-    a = mod(a * 1ll * a);
-    b >>= 1;
-  }
-  return mod(ans);
-}
+int nCr[35][35];
+
 void pre() {
-  fact[0] = 1ll;
-  for (int i = 1; i <= N; i++)
-    fact[i] = mod(fact[i - 1] * 1ll * i);
-  ifact[N] = binexp(fact[N], M - 2);
-  for (int i = N; i > 0; i--) {
-    ifact[i - 1] = mod(ifact[i] * 1ll * i);
+  for (int i = 0; i <= 30; i++) {
+    nCr[i][0] = 1;
+    for (int j = 1; j <= i; j++) {
+      nCr[i][j] = nCr[i - 1][j - 1] + nCr[i - 1][j];
+    }
   }
 }
-int nCr(int n, int r) {
-  if (n < r || r < 0)
-    return 0ll;
-  if (r == 0 || n == r)
-    return 1ll;
-  return mod(mod(fact[n] * 1ll * ifact[r]) * 1ll * ifact[n - r]);
+
+int P(int n, int k) {
+  int res = 1;
+  for (int i = 0; i < k; i++) {
+    res *= (n - i);
+  }
+  return res;
 }
 
 void marwan(int cs) {
@@ -53,7 +43,7 @@ void marwan(int cs) {
     cout << "Case " << cs << ": " << 1 << "\n";
     return;
   }
-  int ans = nCr(n, k) * 1ll * (nCr(n, k) * 1ll * fact[k]);
+  int ans = nCr[n][k] * 1ll * P(n, k);
   cout << "Case " << cs << ": " << ans << "\n";
 }
 
