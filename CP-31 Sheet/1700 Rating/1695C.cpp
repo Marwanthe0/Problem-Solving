@@ -2,7 +2,7 @@
 using namespace std;
 #define int long long
 #define M 1000000007
-#define N 1e6
+#define N 1000005
 #define INF 1e17
 #define endl "\n"
 #define all(v) v.begin(), v.end()
@@ -10,55 +10,42 @@ using namespace std;
 #define no cout << "NO" << endl
 #define minus cout << "-1" << endl
 #define zero cout << "0" << endl
-#define make_unique(x) \
-    sort(all((x)));    \
-    (x).erase(unique(all((x))), (x).end())
-int n, m;
-vector<vector<int>> v;
-vector<vector<vector<bool>>> dp, vis;
-bool f(int i, int j, int sum) {
-    if (i >= n || j >= m) {
-        // cerr << "ERROR " << i << " " << j << " " << sum << endl;
-        return 0;
-    }
-    sum += v[i][j];
-    // cerr << i << " " << j << " " << sum << endl;
-    if (i == n - 1 && j == m - 1) {
-        return sum == 0;
-    }
-    if (vis[i][j][sum]) {
-        return dp[i][j][sum];
-    }
-    bool right = false, down = false;
-    if (j < m)
-        right = f(i, j + 1, sum);
-    if (i < n)
-        down = f(i + 1, j, sum);
-    vis[i][j][sum] = 1;
-    return dp[i][j][sum] = right | down;
-}
+#define make_unique(x)                                                         \
+  sort(all((x)));                                                              \
+  (x).erase(unique(all((x))), (x).end())
 void marwan() {
-    cin >> n >> m;
-    v.assign(n, vector<int>(m, 0));
-    dp.assign(n, vector<vector<bool>>(m, vector<bool>(n * m + 1, 0)));
-    vis.assign(n, vector<vector<bool>>(m, vector<bool>(n * m + 1, 0)));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++)
-            cin >> v[i][j];
+  int n, m;
+  cin >> n >> m;
+  vector<vector<int>> v(n, vector<int>(m, 0));
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> v[i][j];
     }
-    bool ans = f(0, 0, 0);
-    if (ans)
-        yes;
-    else
-        no;
+  }
+  auto dp1 = v, dp2 = v;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (i == 0 && j == 0)
+        continue;
+      dp1[i][j] +=
+          max(i ? dp1[i - 1][j] : INT_MIN, j ? dp1[i][j - 1] : INT_MIN);
+      dp2[i][j] +=
+          min(i ? dp2[i - 1][j] : INT_MAX, j ? dp2[i][j - 1] : INT_MAX);
+    }
+  }
+
+  if ((n + m - 1) % 2 == 0 && dp1[n - 1][m - 1] >= 0 && dp2[n - 1][m - 1] <= 0)
+    yes;
+  else
+    no;
 }
 int32_t main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    int t;
-    cin >> t;
-    while (t--) {
-        marwan();
-    }
-    return 0;
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
+  int t;
+  cin >> t;
+  while (t--) {
+    marwan();
+  }
+  return 0;
 }
