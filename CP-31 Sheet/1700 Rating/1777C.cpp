@@ -13,61 +13,61 @@ using namespace std;
 #define make_unique(x)                                                         \
   sort(all((x)));                                                              \
   (x).erase(unique(all((x))), (x).end())
-vector<int> vis(N + 1, -1);
 void marwan() {
   int n, m;
   cin >> n >> m;
   vector<int> v(n);
-  for (int i = 0; i < n; i++) {
-    cin >> v[i];
+  unordered_set<int> st;
+  for (auto &vl : v) {
+    cin >> vl;
+    st.insert(vl);
   }
   make_unique(v);
   n = v.size();
-  for (int i = 0; i < n; i++)
-    vis[v[i]] = i;
-  int l = 0, r = n - 1;
-  int mx = v.back();
-  auto ok = [&](int st, int end) -> bool {
-    for (int i = 2; i <= m; i++) {
-      bool flag = false;
-      for (int j = i; j <= mx; j += i) {
-        if (st <= vis[j] && vis[j] <= end) {
-          flag = true;
+  vector<int> mp(m + 1, 0);
+  int l = 0, r = 0, ans = 1e17, count = 0;
+  while (r < n) {
+    int x = v[r];
+    for (int d = 1; d * d <= x; d++) {
+      if (x % d == 0) {
+        if (d <= m) {
+          if (mp[d] == 0)
+            count++;
+          mp[d]++;
+        }
+        if (x / d != d) {
+          if (x / d <= m) {
+            if (mp[x / d] == 0)
+              count++;
+            mp[x / d]++;
+          }
         }
       }
-      if (!flag) {
-        return false;
+    }
+    while (l <= r && count == m) {
+      ans = min(ans, v[r] - v[l]);
+      int y = v[l];
+      for (int d = 1; d * d <= y; d++) {
+        if (y % d == 0) {
+          if (d <= m) {
+            if (mp[d] == 1)
+              count--;
+            mp[d]--;
+          }
+          if (y / d != d) {
+            if (y / d <= m) {
+              if (mp[y / d] == 1)
+                count--;
+              mp[y / d]--;
+            }
+          }
+        }
       }
+      l++;
     }
-    return true;
-  };
-  int ans = n - 1, ans2 = 0;
-  bool flag = false;
-  while (l <= r) {
-    int mid = l + (r - l) / 2;
-    if (ok(0, mid)) {
-      r = mid - 1, ans = mid, flag = true;
-    } else {
-      l = mid + 1;
-    }
+    r++;
   }
-  if (!flag) {
-    for (auto vl : v)
-      vis[vl] = -1;
-    minus;
-    return;
-  }
-  l = 0, r = ans;
-  while (l <= r) {
-    int mid = l + (r - l) / 2;
-    if (ok(mid, ans)) {
-      l = mid + 1, ans2 = mid;
-    } else
-      r = mid - 1;
-  }
-  for (auto vl : v)
-    vis[vl] = -1;
-  cout << v[ans] - v[ans2] << endl;
+  cout << (ans == 1e17 ? -1 : ans) << endl;
 }
 int32_t main() {
   ios_base::sync_with_stdio(false);
