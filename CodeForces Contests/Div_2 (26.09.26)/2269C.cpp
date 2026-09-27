@@ -37,7 +37,7 @@ void marwan() {
     pf[i] += pf[i - 1];
   }
   //   int tsum = pf[tk - 1];
-  //   for (int i = 0; i <= elems; i++) {
+  //   for (int i = 0; i <= elems; ik++) {
   //     int ultai = elems - i;
   //     ultai = n - ultai + 1;
   //     int sm1 = pf.back() - pf[ultai - 1];
