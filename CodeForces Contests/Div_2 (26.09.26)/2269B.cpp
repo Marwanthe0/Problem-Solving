@@ -15,62 +15,41 @@ using namespace std;
   (x).erase(unique(all((x))), (x).end())
 int f(int x) {
   int sum = 0;
-  while (x) {
-    int y = x % 10;
-    sum += y * y;
-    x /= 10;
-  }
+  while (x)
+    sum += (x % 10) * (x % 10), x /= 10;
   return sum;
 }
-int ff(int x) {
-  for (int step = 0; step < 100; step++) {
-    x = f(x);
-  }
-  return x;
-}
-// int ff(int x, bool flag) {
-//   if (x < 10 && flag == true)
-//     return m[x] = x;
-//   int sum = 0, fg = x < 10;
-//   if (m.count(x))
-//     return m[x];
-//   while (x) {
-//     int y = x % 10;
-//     sum += y * y;
-//     x /= 10;
-//   }
-//   return m[x] = ff(sum, flag || fg);
-// }
 void marwan() {
   int n;
   cin >> n;
+  vector<map<int, int>> t(50);
   vector<int> v(n);
-  map<int, int> m;
   for (auto &vl : v) {
     cin >> vl;
-    m[ff(vl)]++;
-    // cerr << m[vl] << " ";
+    int x = vl;
+    for (int i = 0; i < 50; i++) {
+      t[i][x]++;
+      x = f(x);
+    }
   }
-  //   cerr << endl;
   int ans = 0;
-  for (auto &[val, count] : m) {
-    ans += count * (count - 1) / 2;
+  for (int i = 0; i < 50; i++) {
+    cerr << i << endl;
+    int tsum = 0;
+    for (auto [x, y] : t[i]) {
+      tsum += y * (y - 1) / 2;
+      // cerr << x << " " << y << endl;
+    }
+    ans = max(ans, tsum);
+    // cerr << endl;
   }
-  cout << ans << "\n";
+  cout << ans << endl;
+  // cerr << endl;
+  // cerr << endl;
 }
 int32_t main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
-  //   m[1] = 1;
-  //   for (int i = 2; i <= 1000; i++) {
-  //     int x = f(i);
-  //     if (!m.count(i)) {
-  //       m[i] = ff(x, x < 10 ? 0 : 1);
-  //     }
-  //   }
-  //   for (int i = 1; i <= 50; i++) {
-  //     cout << i << " " << m[i] << endl;
-  //   }
   int t;
   cin >> t;
   while (t--) {
