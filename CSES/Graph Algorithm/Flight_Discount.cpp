@@ -15,38 +15,55 @@ using namespace std;
   (x).erase(unique(all((x))), (x).end())
 int n, m;
 vector<vector<pair<int, int>>> g;
-multiset<pair<int, int>> ms;
-vector<int> parent;
-vector<vector<int>> dist;
+vector<vector<int>> cost;
 void marwan() {
   cin >> n >> m;
   g.assign(n + 1, vector<pair<int, int>>());
-  dist.assign(n + 1, vector<int>(2, INT_MAX));
-  parent.assign(n + 1, -1);
+  cost.assign(n + 1, vector<int>(2, 1e17));
   for (int i = 0; i < m; i++) {
-    int x, y, z;
-    cin >> x >> y >> z;
-    g[x].push_back({y, z});
-    // g[y].push_back({x, z});
+    int a, b, c;
+    cin >> a >> b >> c;
+    g[a].push_back({b, c});
   }
-  // dist[i][0] -> distance without doing operations
-  // dist[i][1] -> distance with doing operation
-  dist[1][0] = dist[1][1] = 0;
-  ms.insert({0, 1});
-  while (!ms.empty()) {
-    auto [d, u] = *ms.begin();
-    ms.erase(ms.begin());
-    if (d > dist[u][0])
+  // gota = cost, node, operation
+  using gota = tuple<int, int, int>;
+  priority_queue<gota, vector<gota>, greater<gota>> pq;
+  pq.push({0, 1, 0});
+  cost[1][0] = cost[1][1] = 0;
+  while (!pq.empty()) {
+    auto [ndcost, nd, op] = pq.top();
+    pq.pop();
+    if (ndcost > cost[nd][op])
       continue;
-    for (auto [v, cost] : g[u]) {
-      if (dist[u][0] + cost < dist[v][0]) {
-        dist[v][0] = dist[u][0] + cost;
+    for (auto [child, childcost] : g[nd]) {
+      if (childcost + ndcost < cost[child][op]) {
+        cost[child][op] = childcost + ndcost;
+        pq.push({cost[child][op], child, op});
       }
+      if (!op && ndcost + (childcost / 2) < cost[child][1]) {
+        cost[child][1] = ndcost + (childcost / 2);
+        pq.push({cost[child][1], child, 1});
+      }
+      // if (op == 0) {
+      //   int newcost = ndcost + childcost, newcost1 = ndcost + childcost / 2;
+      //   if (newcost < cost[child][0]) {
+      //     cost[child][0] = newcost;
+      //     pq.push({cost[child][0], child, 0});
+      //   }
+      //   if (newcost1 < cost[child][1]) {
+      //     cost[child][1] = newcost1;
+      //     pq.push({cost[child][1], child, 1});
+      //   }
+      // } else {
+      //   int newcost1 = ndcost + childcost;
+      //   if (newcost1 < cost[child][1]) {
+      //     cost[child][1] = newcost1;
+      //     pq.push({cost[child][1], child, 1});
+      //   }
+      // }
     }
   }
-  for (int i = 1; i <= n; i++)
-    cout << dist[i].first << " " << dist[i].second << endl;
-  cout << dist[n].first - (dist[n].second / 2) << endl;
+  cout << cost[n][1] << endl;
 }
 int32_t main() {
   ios_base::sync_with_stdio(false);
