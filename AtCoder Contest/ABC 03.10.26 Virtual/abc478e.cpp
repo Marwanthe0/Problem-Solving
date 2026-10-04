@@ -37,17 +37,14 @@ void marwan() {
   cin >> n >> k;
   g.assign(n + 1, vector<int>()), t.assign(n + 1, vector<int>());
   vector<pair<int, int>> norm, strict, ind;
-  map<int, int> indeg;
   ans.assign(n + 1, 0);
   for (int i = 0; i < k; i++) {
     int a, b, c;
     cin >> a >> b >> c;
-    indeg[b]++;
     g[b].push_back(c);
     t[c].push_back(b);
     if (a)
       strict.push_back({b, c});
-    // cerr << b << " " << c << endl;
   }
   vis.assign(n + 1, 0);
   for (int i = 1; i <= n; i++) {
@@ -60,7 +57,6 @@ void marwan() {
   int count = 1;
   while (!st.empty()) {
     int nd = st.top();
-    // cout << nd << " ";
     if (!vis[nd])
       dfs2(nd, m[count++]);
     st.pop();
