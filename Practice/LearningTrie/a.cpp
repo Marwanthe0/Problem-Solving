@@ -23,6 +23,8 @@ void marwan(int cs)
     vector<int> v(n);
     for (auto &vl : v)
         cin >> vl;
+    for(auto vl:v) cout<<vl<<" ";
+    cout << endl;
     dbg(v);
     yes;
 }
