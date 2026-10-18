@@ -21,7 +21,7 @@ void marwan() {
         v[i].second.resize(m, 0);
         for (auto &vl : v[i].second)
             cin >> vl;
-        for (int  j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++) {
             v[i].first += v[i].second[j];
         }
     }
@@ -30,14 +30,11 @@ void marwan() {
     int k = n * m, ans = 0ll;
     for (auto row : v) {
         for (auto vl : row.second) {
-            // cerr << vl << " ";
             ans += k * vl;
             k--;
         }
-        // cerr << endl;
     }
     cout << ans << endl;
-    // cerr << endl;
 }
 int32_t main() {
     ios_base::sync_with_stdio(false);
