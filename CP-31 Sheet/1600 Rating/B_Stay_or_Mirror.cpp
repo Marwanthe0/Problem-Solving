@@ -25,28 +25,25 @@ void marwan() {
         cin >> vl;
     int ans = 0;
     for (int i = 0; i < n; i++) {
-        int count = 0, count2 = 0;
+        int cnt = 0, cnt2 = 0;
         int x = 2 * n - v[i];
         for (int j = 0; j < n; j++) {
             if (i == j)
                 continue;
             if ((i > j && v[j] > v[i]) || (i < j && v[j] < v[i]))
-                count++;
+                cnt++;
             if ((i > j && v[j] > x) || (i < j && v[j] < x))
-                count2++;
+                cnt2++;
         }
-        // cerr << i << "::" << count << " " << count2 << endl;
-        if (count2 < count)
+        if (cnt2 < cnt)
             v[i] = x;
     }
     for (int i = 0; i < n; i++) {
-        // cerr << v[i] << " ";
         for (int j = i + 1; j < n; j++) {
             if (v[i] > v[j])
                 ans++;
         }
     }
-    // cerr << endl;
     cout << ans << endl;
 }
 int32_t main() {
