@@ -36,25 +36,14 @@ vector<vector<int>> mul(vector<vector<int>> &a, vector<vector<int>> &b) {
     return ans;
 }
 void marwan() {
-    // int a, b;
-    // cin >> a >> b;
-    // bin(a);
-    // bin(b);
-    // for (int i = 0; i < 10; i++) {
-    //     int x = 3 * b - 2 * a;
-    //     a = b;
-    //     b = x;
-    //     bin(b);
-    // }
-    // cout << endl;
     int n = 10, x, y;
     cin >> x >> y;
     vector<vector<int>> a = {{0, 1}, {-2, 3}}, ans = a, cur = {{x}, {y}};
     print(cur);
     for (int i = 0; i < n; i++) {
         ans = mul(ans, a);
-        vector<vector<int>> temp = mul(ans, cur);
-        print(temp);
+        vector<vector<int>> tmp = mul(ans, cur);
+        print(tmp);
     }
     cout << endl;
 }
