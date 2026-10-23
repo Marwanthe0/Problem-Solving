@@ -10,21 +10,21 @@ using namespace std;
 #define zero cout << "0" << endl
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
-#define make_unique(x)                                                         \
-  sort(all((x)));                                                              \
-  (x).erase(unique(all((x))), (x).end())
+#define make_unique(x) \
+    sort(all((x)));    \
+    (x).erase(unique(all((x))), (x).end())
 void marwan() {
-  int a, b;
-  cin >> a >> b;
-  if (b <= a) {
-    cout << a - b << endl;
-    return;
-  }
-  int ans = f()
+    int a, b;
+    cin >> a >> b;
+    if (b <= a) {
+        cout << a - b << endl;
+        return;
+    }
+    yes;
 }
 int32_t main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  marwan();
-  return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    marwan();
+    return 0;
 }
