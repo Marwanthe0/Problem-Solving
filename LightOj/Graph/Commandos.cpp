@@ -48,16 +48,15 @@ void marwan(int cs) {
     }
     int source, dest;
     cin >> source >> dest;
-    // cerr << source << " " << dest << endl;
+
     dfs(source, dist);
     vis.assign(n, 0);
     dfs(dest, dist2);
     int ans = 0;
+    
     for (int i = 0; i < n; i++) {
-        // cerr << i << " " << dist[i] << " " << dist2[i] << endl;
         ans = max(ans, dist[i] + dist2[i]);
     }
-    // cerr << endl;
     cout << ans << endl;
 }
 int32_t main() {
