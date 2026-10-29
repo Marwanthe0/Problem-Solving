@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CP Run",
+            "type": "shell",
+            "command": "g++ -std=c++17 -O2 \"${file}\" -o main && ./main < input.txt > output.txt",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
