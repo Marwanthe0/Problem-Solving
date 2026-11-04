@@ -13,36 +13,47 @@ using namespace std;
 #define make_unique(x) \
     sort(all((x)));    \
     (x).erase(unique(all((x))), (x).end())
+string a, b, s;
+int n;
 void marwan(int cs) {
     string s;
     cin >> s;
-    int l = 0, r = 0, flag = -1, ans = 0, n = s.size();
-    while (r < n) {
-        if (s[r] == '?') {
-            if (flag != -1) {
-                flag = !flag;
-            }
-        } else {
-            if (flag == -1)
-                flag = 1 - (s[r] - '0');
-            else if (flag == s[r] - '0')
-                flag = !flag;
-            else {
-                int x = r - l;
-                ans += x * (x - 1) / 2;
-                flag = 1 - (s[r] - '0');
-                l = r;
-                while (l - 1 >= 0 && s[l - 1] == '?')
-                    l--;
-            }
-        }
-        // cerr << l << " " << r << " " << flag << endl;
-        r++;
+    a.clear();
+    b.clear();
+    n = s.size();
+    for (int i = 0; i < n; i++) {
+        a.push_back('0' + (i & 1));
+        b.push_back('0' + ((i + 1) & 1));
     }
+    // cout << s << endl;
+    // cout << a << endl;
+    // cout << b << endl;
+    int ans = 0, count = 0, ans2 = 0, count2 = 0, count3 = 0, ans3 = 0;
+    for (int i = 0; i < n; i++) {
+        if (s[i] == a[i] || s[i] == '?')
+            count++;
+        else {
+            ans += (count * (count + 1)) / 2, count = 0;
+        }
+
+        if (s[i] == b[i] || s[i] == '?')
+            count2++;
+        else
+            ans2 += (count2 * (count2 + 1)) / 2, count2 = 0;
+
+        if (s[i] == '?')
+            count3++;
+        else
+            ans3 += (count3 * (count3 + 1)) / 2, count3 = 0;
+    }
+    ans += count * (count + 1) / 2;
+    ans2 += count2 * (count2 + 1) / 2;
+    ans3 += count3 * (count3 + 1) / 2;
+    // cerr << ans << " " << count << endl;
+    // cerr << ans2 << " " << count2 << endl;
+    // cerr << ans3 << " " << count3 << endl;
     // cerr << endl;
-    int x = r - l;
-    ans += x * (x - 1) / 2;
-    cout << ans + n << endl;
+    cout << ans + ans2 - ans3 << endl;
 }
 int32_t main() {
     ios_base::sync_with_stdio(false);
