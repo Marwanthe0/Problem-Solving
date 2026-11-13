@@ -20,6 +20,7 @@ int f(int i, int j) {
         return 0;
     if (dp[i][j] != -1)
         return dp[i][j];
+        
     int ans = 0;
     ans = max(ans, pfu[i][j] + f(i - 1, j));
     ans = max(ans, pfr[i][j] + f(i, j - 1));
