@@ -94,6 +94,7 @@ void marwan(int cs) {
         cin >> vl;
 
     int src = 0, dest = n + m + 1;
+    // 1 based, so dest + 1 size,
     Dinic d(n + m + 2);
 
     for (int i = 0; i < n; i++) {
@@ -111,6 +112,7 @@ void marwan(int cs) {
             }
         }
     }
+
     cout << d.max_flow(src, dest) << endl;
 }
 int32_t main() {
