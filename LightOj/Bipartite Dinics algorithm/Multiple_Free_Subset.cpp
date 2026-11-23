@@ -51,7 +51,6 @@ struct Dinic {
         }
         return level[t] != -1;
     }
-    vector<pair<int, int>> edges;
     int dfs(int u, int t, int pushed) {
         if (pushed == 0 || u == t)
             return pushed;
@@ -63,8 +62,6 @@ struct Dinic {
             int tr = dfs(v, t, min(pushed, wt));
             if (tr == 0)
                 continue;
-            if (u && v != t)
-                edges.push_back({u, v});
             wt -= tr;
             adj[v][rwt].wt += tr;
             return tr;
@@ -82,17 +79,13 @@ struct Dinic {
         }
         return flow;
     }
-    vector<pair<int, int>> e() {
-        return edges;
-    }
 };
-void marwan(int cs) {
-    cin >> n;
-    v.assign(n, 0);
-    for (auto &vl : v)
-        cin >> vl;
-    make_unique((v));
-    n = v.size();
+
+int mxlen(vector<int> &a, vector<int> &ids) {
+    vector<int> v;
+    for (auto id : ids)
+        v.push_back(a[id]);
+    int n = v.size();
     int src = 0, dest = 2 * n + 1;
     Dinic D(dest + 1);
     for (int i = 0; i < n; i++) {
@@ -107,7 +100,49 @@ void marwan(int cs) {
             }
         }
     }
-    cout << n - D.max_flow(src, dest) << endl;
+    return n - D.max_flow(src, dest);
+}
+void marwan(int cs) {
+    cin >> n;
+    v.assign(n, 0);
+    for (auto &vl : v)
+        cin >> vl;
+    make_unique((v));
+    n = v.size();
+    vector<int> active(n, 1), ans, id;
+    for (int i = 0; i < n; i++)
+        id.push_back(i);
+    int best = mxlen(v, id);
+    for (int i = 0; i < n; i++) {
+        if (!active[i])
+            continue;
+        active[i] = 0;
+        vector<int> todel;
+        for (int j = i + 1; j < n; j++) {
+            if (active[j] && v[j] % v[i] == 0) {
+                active[j] = 0;
+                todel.push_back(j);
+            }
+        }
+
+        int ache = ans.size();
+        vector<int> ids;
+        for (int j = i + 1; j < n; j++) {
+            if (active[j])
+                ids.push_back(j);
+        }
+        int len = mxlen(v, ids);
+        if (ache + len + 1 == best) {
+            ans.push_back(v[i]);
+        } else {
+            for (auto id : todel) {
+                active[id] = 1;
+            }
+        }
+    }
+    for (auto vl : ans)
+        cout << vl << " ";
+    cout << endl;
 }
 int32_t main() {
     ios_base::sync_with_stdio(false);
